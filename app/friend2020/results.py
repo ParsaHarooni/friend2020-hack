@@ -38,7 +38,7 @@ class FriendResult:
         except NotFoundException:
             return False, None
 
-    def get_answers(self):
+    def get_answers(self) -> list:
         """
         This function returns the list of question with the correct answer
 
@@ -61,15 +61,13 @@ class FriendResult:
             return answers
         else:
             return None
-        
-    def get_name(self):
+
+    def get_name(self) -> str:
         is_found, parser = self.get_parser()
         if is_found:
-            name_txt = parser.find("h3", {"class": "fivepxtop tenpxbottom center"}).get_text().strip()
+            name_txt = parser.find(
+                "h3", {"class": "fivepxtop tenpxbottom center"}).get_text().strip()
             name = re.findall("How Well do you know (.+)?", name_txt)
             return name[0].replace("?", "")
         else:
             return None
-
-        
-    
