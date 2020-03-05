@@ -3,11 +3,13 @@ from bs4 import BeautifulSoup
 from .exceptions import NotFoundException, ConnectionException
 import re
 
+BASE_URL = "http://friend2020.com/quiz/{code}"
+
 
 class FriendResult:
 
-    def __init__(self, url: str) -> None:
-        self.url = url
+    def __init__(self, code: int) -> None:
+        self.code = code
         self.response = ''
         self.is_found = False
 
@@ -15,7 +17,7 @@ class FriendResult:
         """
         This function gets the response of webpage
         """
-        req = requests.get(self.url, headers={
+        req = requests.get(BASE_URL.format(code=self.code), headers={
                            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'})
         if req.status_code == 200:
             if "Select Language" in req.text:
@@ -51,7 +53,6 @@ class FriendResult:
             answers = []
             questions_fields = parser.find_all(
                 "div", {"class": "question hidden unanswered"})
-            print(questions_fields)
             for question_fields in questions_fields:
                 question = question_fields.find(
                     "h3", {"class": "fivepxtop question_attempt_text"}).get_text().strip()
