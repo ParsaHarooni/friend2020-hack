@@ -26,4 +26,4 @@ def get_results(code):
         resp = dict(status=False, message="Quiz with this code was not found")
     return jsonify(resp)
 
-app.run(debug=True)
+app.run(debug=True, host='0.0.0.0')
