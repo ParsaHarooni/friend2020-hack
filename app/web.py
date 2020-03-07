@@ -12,11 +12,16 @@ def main():
 @app.route('/result')
 def show_answers():
     code = request.args.get("code")
-    quiz_result = FriendResult(code).get_answers()
-    resp = dict(status=True, data=quiz_result)
+    quiz = FriendResult(code)
+    quiz_result = quiz.get_answers()
+    name = quiz.get_name()
     if quiz_result is None:
         resp = dict(status=False, message="Quiz with this code was not found")
-    return jsonify(resp)
+        return jsonify(resp)
+    else:
+        return render_template('answers.html', name=name, data=quiz_result, len=len(quiz_result))
+
+
 
 @app.route('/api/results/<int:code>')
 def get_results(code):

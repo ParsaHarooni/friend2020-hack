@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answers for {{name}}</title>
+</head>
+<style>
+table {
+  border-spacing: 5px;
+}
+</style>
+<body>
+    <h2>Questions and answers for {{name}}</h2>
+    <table>
+        <tr>
+            <th>Question</th>
+            <th>Answer</th>
+        </tr>
+        {% for i in range(0, len) %}
+            <tr>
+                <td>{{data[i]["question"]}}</td>
+                <td>{{data[i]["answer"]}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
